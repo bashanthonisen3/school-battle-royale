@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Battle Royale</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Game Canvas -->
+    <div id="gameContainer"></div>
+
+    <!-- UI Overlay -->
+    <div id="uiOverlay" class="ui-overlay">
+        <!-- Main Menu -->
+        <div id="mainMenu" class="menu-panel">
+            <div class="menu-content">
+                <h1 class="game-title">⚔️ SCHOOL BATTLE ROYALE ⚔️</h1>
+                <div class="menu-buttons">
+                    <button id="soloBtn" class="menu-btn btn-primary">SOLO MODE</button>
+                    <button id="duoBtn" class="menu-btn btn-secondary">DUO MODE</button>
+                    <button id="settingsBtn" class="menu-btn btn-tertiary">SETTINGS</button>
+                </div>
+                <div class="menu-info">
+                    <p class="info-text">Use WASD to move, Space to jump, Shift to sprint</p>
+                    <p class="info-text">Collect items, complete quests, and be the last one standing!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Waiting for Players -->
+        <div id="waitingPanel" class="menu-panel hidden">
+            <div class="menu-content">
+                <h2>SEARCHING FOR PLAYERS...</h2>
+                <div class="loader"></div>
+                <p id="playerCount">Players Found: 1/50</p>
+                <button id="cancelSearchBtn" class="menu-btn btn-secondary">CANCEL</button>
+            </div>
+        </div>
+
+        <!-- HUD (In-Game) -->
+        <div id="hud" class="hud hidden">
+            <!-- Top-Left: Player Info -->
+            <div class="hud-section top-left">
+                <div class="player-card">
+                    <div class="player-name" id="playerName">Player 1</div>
+                    <div class="player-stats">
+                        <span id="kills">Kills: 0</span>
+                        <span id="deaths">Deaths: 0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top-Right: Mini Map -->
+            <div class="hud-section top-right">
+                <canvas id="miniMap" width="200" height="200" class="minimap"></canvas>
+                <div class="minimap-label">RADAR</div>
+            </div>
+
+            <!-- Bottom-Left: XP Display -->
+            <div class="hud-section bottom-left">
+                <div class="xp-display">
+                    <div class="xp-label">EXPERIENCE</div>
+                    <div class="xp-bar">
+                        <div id="xpFill" class="xp-fill"></div>
+                    </div>
+                    <div id="xpText" class="xp-text">0 / 1000 XP</div>
+                    <div id="levelDisplay" class="level-display">LEVEL 1</div>
+                </div>
+            </div>
+
+            <!-- Bottom-Center: Health Display -->
+            <div class="hud-section bottom-center">
+                <div class="health-display">
+                    <div class="health-label">HEALTH</div>
+                    <div class="health-bar">
+                        <div id="healthFill" class="health-fill"></div>
+                    </div>
+                    <div id="healthText" class="health-text">100 / 100 HP</div>
+                </div>
+            </div>
+
+            <!-- Bottom-Right: Inventory & Status -->
+            <div class="hud-section bottom-right">
+                <div class="inventory">
+                    <div class="inventory-label">INVENTORY</div>
+                    <div class="inventory-grid">
+                        <div class="inventory-slot" id="slot1"></div>
+                        <div class="inventory-slot" id="slot2"></div>
+                        <div class="inventory-slot" id="slot3"></div>
+                        <div class="inventory-slot" id="slot4"></div>
+                    </div>
+                </div>
+                <div class="status-info">
+                    <div id="modeDisplay" class="mode-display">SOLO</div>
+                    <div id="playersAlive" class="players-alive">Players: 50</div>
+                </div>
+            </div>
+
+            <!-- Center: Crosshair -->
+            <div class="crosshair"></div>
+
+            <!-- Notifications -->
+            <div id="notifications" class="notifications"></div>
+        </div>
+
+        <!-- Death Screen -->
+        <div id="deathScreen" class="menu-panel hidden">
+            <div class="menu-content death-content">
+                <h2>YOU WERE ELIMINATED</h2>
+                <div class="death-stats">
+                    <p>Rank: <span id="deathRank">50</span></p>
+                    <p>Kills: <span id="deathKills">0</span></p>
+                    <p>Total XP Earned: <span id="deathXP">0</span></p>
+                </div>
+                <button id="respawnBtn" class="menu-btn btn-primary">PLAY AGAIN</button>
+                <button id="mainMenuBtn" class="menu-btn btn-secondary">MAIN MENU</button>
+            </div>
+        </div>
+
+        <!-- Victory Screen -->
+        <div id="victoryScreen" class="menu-panel hidden">
+            <div class="menu-content victory-content">
+                <h2 class="victory-title">🎓 A+ VICTORY 🎓</h2>
+                <div class="victory-medal">🏆</div>
+                <div class="victory-stats">
+                    <p>Rank: <span id="victoryRank">1</span></p>
+                    <p>Kills: <span id="victoryKills">5</span></p>
+                    <p>Total XP Earned: <span id="victoryXP">5000</span></p>
+                    <p>Bonus XP: <span id="bonusXP">1000</span></p>
+                </div>
+                <button id="playAgainBtn" class="menu-btn btn-primary">PLAY AGAIN</button>
+                <button id="mainMenuBtn2" class="menu-btn btn-secondary">MAIN MENU</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
